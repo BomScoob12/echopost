@@ -15,4 +15,6 @@ export class User {
   password: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User)
+  .index({ email: 1 }, { unique: true })
+  .index({ username: 1 }, { unique: true });

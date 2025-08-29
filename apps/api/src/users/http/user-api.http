@@ -1,0 +1,32 @@
+# get all users
+GET http://localhost:8080/users
+###
+
+# get user by id
+GET http://localhost:8080/users?id=68b16f96cfc4613bed7d1710
+###
+
+# create new users
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "email":"bomscoob@git.com",
+    "username": "bomscoob",
+    "password": "12346578"
+}
+###
+
+# update users
+PATCH http://localhost:8080/users/68b16f96cfc4613bed7d1710
+Content-Type: application/json
+
+{
+    "email":"bomscoob@github.com",
+    "username": "bomscoob",
+    "password": "12346578"
+}
+###
+
+# remove user
+DELETE http://localhost:8080/users/68b16f96cfc4613bed7d1710
