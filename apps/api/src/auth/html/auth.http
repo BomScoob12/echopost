@@ -1,0 +1,8 @@
+# test login 
+POST http://localhost:8080/auth/login 
+Content-Type: application/json 
+
+{
+    "email": "bomscoob@git.com",
+    "password": "12346578"
+}

@@ -12,6 +12,8 @@ export class AuthService {
 
   async validateUser(email: string, pass: string) {
     const user = await this.usersService.findOneByEmail(email);
+    console.log(typeof pass, typeof user?.password);
+    console.log(pass, user?.password);
     const isPasswordValid = user && user.password === pass;
 
     if (!isPasswordValid) {
@@ -28,7 +30,7 @@ export class AuthService {
     const user = await this.validateUser(email, pass);
 
     const payload = {
-      username: user.username,
+      sub: user.username,
       email: user.email,
     };
 
