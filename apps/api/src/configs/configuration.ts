@@ -11,4 +11,8 @@ export default () => ({
     user: process.env.MONGO_DB_USER,
     pass: process.env.MONGO_DB_PASS,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRATION_TIME,
+  },
 });

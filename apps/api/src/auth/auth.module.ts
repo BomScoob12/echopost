@@ -13,14 +13,13 @@ import { LocalStrategy } from './strategies/local.strategy';
     PassportModule,
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => {
-        const secret = configService.get<string>('JWT_SECRET');
-        const expiration =
-          configService.get<string>('JWT_EXPIRATION_TIME') || '30m';
+        const secret = configService.get<string>('jwt.secret');
+        const expiration = configService.get<string>('jwt.expiresIn') || '30m';
         return {
           secret: secret,
           signOptions: {
             expiresIn: expiration,
-            issuer: 'localhost.bomscoob',
+            issuer: configService.get<string>('app.name'),
           },
         };
       },

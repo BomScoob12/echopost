@@ -6,15 +6,14 @@ import { ConfigService } from '@nestjs/config';
   imports: [
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
-        const host = configService.get<string>('MONGO_DB_HOST');
-        const port = configService.get<string>('MONGO_DB_PORT');
-        const dbName = configService.get<string>('MONGO_DB_NAME');
-        const user = configService.get<string>('MONGO_DB_USER');
-        const pass = configService.get<string>('MONGO_DB_PASS');
+        const host = configService.get<string>('database.host');
+        const port = configService.get<string>('database.port');
+        const dbName = configService.get<string>('database.name');
+        const user = configService.get<string>('database.user');
+        const pass = configService.get<string>('database.pass');
+
         const mongoUri = `mongodb://${user}:${pass}@${host}:${port}/${dbName}`;
-        return {
-          uri: mongoUri,
-        };
+        return { uri: mongoUri };
       },
       inject: [ConfigService],
     }),
