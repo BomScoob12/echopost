@@ -4,20 +4,21 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto/sign-in.dto';
-import { LocalAuthGuard } from './guard/local-auth.guard';
+import { User } from 'src/users/schemas/user.schema';
+import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async signIn(@Body() signInDto: SignInDto) {
-    return this.authService.login(signInDto.email, signInDto.password);
+  async login(@Request() req: { user: User }) {
+    return this.authService.login(req.user);
   }
 }
