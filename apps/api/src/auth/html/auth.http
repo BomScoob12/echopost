@@ -6,3 +6,8 @@ Content-Type: application/json
     "email": "bomscoob@git.com",
     "password": "12346578"
 }
+###
+
+# get profile
+GET http://localhost:8080/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJib21zY29vYiIsImVtYWlsIjoiYm9tc2Nvb2JAZ2l0LmNvbSIsImlhdCI6MTc1NjcyODUxMSwiZXhwIjoxNzU2NzI5NDExLCJpc3MiOiJlY2hvcG9zdCJ9.17uq_uLZ187E_WVzjqfcgaZDMLJNTe_KmD-jxNCCHak
