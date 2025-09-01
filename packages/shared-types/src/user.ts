@@ -1,19 +1,18 @@
-export type UserType = {
+export interface UserType {
   _id: string;
   email: string;
   username: string;
   password: string;
-};
+}
 
-export type CreateUserDtoType = {
+export interface CreateUserDtoType {
   email: string;
   username: string;
   password: string;
-};
+}
 
-export type UpdateUserDtoType = {
+export interface UpdateUserDtoType {
   email?: string;
   username?: string;
   password?: string;
-};
-
+}
