@@ -11,7 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { User } from 'src/users/schemas/user.schema';
 import { LocalAuthGuard } from './local-auth.guard';
-import { JWTAuthGuard } from './jwt.guard';
+import { JWTAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
