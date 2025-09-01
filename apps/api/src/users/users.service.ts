@@ -9,22 +9,24 @@ import { InjectModel } from '@nestjs/mongoose';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = await this.userModel.create({
       ...createUserDto,
     });
     return createdUser;
   }
 
-  findAll() {
-    return this.userModel.find();
+  async findOneByEmail(emailReq: string): Promise<User> {
+    const user = await this.userModel.findOne({ email: emailReq });
+
+    if (!user) {
+      throw new NotFoundException(`User with email ${emailReq} not found`);
+    }
+
+    return user;
   }
 
-  findOne(id: string) {
-    return this.userModel.findById(id);
-  }
-
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       id,
       { ...updateUserDto },
@@ -38,7 +40,7 @@ export class UsersService {
     return updatedUser;
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<User> {
     const deletedUser = await this.userModel.findByIdAndDelete(id);
 
     if (!deletedUser) {

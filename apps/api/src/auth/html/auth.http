@@ -1,0 +1,13 @@
+# test login 
+POST http://localhost:8080/auth/login 
+Content-Type: application/json 
+
+{
+    "email": "bomscoob@git.com",
+    "password": "12346578"
+}
+###
+
+# get profile
+GET http://localhost:8080/auth/me
+Set-Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJib21zY29vYiIsImVtYWlsIjoiYm9tc2Nvb2JAZ2l0LmNvbSIsImlhdCI6MTc1NjczMDIxNSwiZXhwIjoxNzU2NzMxMTE1LCJpc3MiOiJlY2hvcG9zdCJ9.IrFyDm8MKisGRtx9B_XCq_-4-S-v8DRuCR2vJcjHcMA; Path=/; HttpOnly,refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJib21zY29vYiIsImVtYWlsIjoiYm9tc2Nvb2JAZ2l0LmNvbSIsImlhdCI6MTc1NjczMDIxNSwiZXhwIjoxNzU2ODE2NjE1LCJpc3MiOiJlY2hvcG9zdCJ9.VSWmnDtfKmq7e1X7AYJkYzgbV885wN2Qp2Z6RD3GF-s; Path=/; HttpOnly
