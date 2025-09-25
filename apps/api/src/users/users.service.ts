@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Model } from 'mongoose';
 import { UserDocument, User } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
+import { UserResponseType } from '@echopost/shared-types';
 
 @Injectable()
 export class UsersService {
@@ -26,8 +27,14 @@ export class UsersService {
     return user;
   }
 
-  async getProfile(user: User) {
-    return this.findOneByEmail(user?.email);
+  async getProfile(user: User): Promise<UserResponseType> {
+    const userData = await this.findOneByEmail(user?.email);
+    const userResponse: UserResponseType = {
+      username: userData.username,
+      email: userData.email,
+    };
+
+    return userResponse;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {

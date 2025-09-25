@@ -5,6 +5,11 @@ export interface UserType {
   password: string;
 }
 
+export interface UserResponseType {
+  email: string;
+  username: string;
+}
+
 export interface CreateUserDtoType {
   email: string;
   username: string;

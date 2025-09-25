@@ -17,7 +17,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JWTAuthGuard } from 'src/auth/jwt-auth.guard';
 import { User } from './schemas/user.schema';
 
-// FOR TESTING
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -25,7 +24,7 @@ export class UsersController {
   @Get('me')
   @UseGuards(JWTAuthGuard)
   @HttpCode(HttpStatus.OK)
-  async getProfile(@Request() req: { user: User }) {
+  getProfile(@Request() req: { user: User }) {
     return this.usersService.getProfile(req.user);
   }
 

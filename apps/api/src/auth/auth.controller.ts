@@ -21,6 +21,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(
     @Request() req: { user: User },
+    // get response like express to setting cookie data
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = await this.authService.login(req.user);
