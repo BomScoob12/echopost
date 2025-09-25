@@ -10,3 +10,6 @@ Content-Type: application/json
 
 # get profile
 GET http://localhost:8080/users/me
+
+###
+GET http://localhost:8080/auth/google

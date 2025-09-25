@@ -40,4 +40,32 @@ export class AuthService {
       refreshToken: refreshToken,
     };
   }
+
+  // google user
+  async googleLogin(user: any) {
+    const userData = await this.usersService.findOne({ email: user.email });
+
+    if (!userData) {
+      this.usersService.save({
+        username: user.name,
+        email: user.email,
+        googleId: user.googleId,
+      } as User);
+    }
+
+    const payload = {
+      sub: user.name,
+      email: user.email,
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      expiresIn: '1d',
+    });
+
+    return {
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    };
+  }
 }

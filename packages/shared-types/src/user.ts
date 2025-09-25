@@ -2,12 +2,14 @@ export interface UserType {
   _id: string;
   email: string;
   username: string;
-  password: string;
+  password?: string;
+  googleId?: string;
 }
 
 export interface UserResponseType {
   email: string;
   username: string;
+  googleId?: string;
 }
 
 export interface CreateUserDtoType {
