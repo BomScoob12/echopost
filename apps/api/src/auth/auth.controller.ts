@@ -1,7 +1,5 @@
 import {
-  Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -12,7 +10,6 @@ import {
 import { AuthService } from './auth.service';
 import { User } from 'src/users/schemas/user.schema';
 import { LocalAuthGuard } from './local-auth.guard';
-import { JWTAuthGuard } from './jwt-auth.guard';
 import type { Response } from 'express';
 
 @Controller('auth')
@@ -33,12 +30,5 @@ export class AuthController {
     return {
       message: 'login successfully',
     };
-  }
-
-  @Get('me')
-  @UseGuards(JWTAuthGuard)
-  @HttpCode(HttpStatus.OK)
-  async getProfile(@Request() req: { user: User }) {
-    return this.authService.getProfile(req.user);
   }
 }

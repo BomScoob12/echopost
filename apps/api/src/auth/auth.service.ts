@@ -40,8 +40,4 @@ export class AuthService {
       refreshToken: refreshToken,
     };
   }
-
-  async getProfile(user: User): Promise<User | null> {
-    return this.usersService.findOneByEmail(user?.email);
-  }
 }

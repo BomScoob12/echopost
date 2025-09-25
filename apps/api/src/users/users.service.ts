@@ -26,6 +26,10 @@ export class UsersService {
     return user;
   }
 
+  async getProfile(user: User) {
+    return this.findOneByEmail(user?.email);
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(
       id,
