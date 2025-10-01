@@ -1,0 +1,14 @@
+
+.main {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 16px;
+  font-family: monospace;
+}
+
+.container {
+    color: var(--background);
+    background-color: var(--foreground);
+}
+

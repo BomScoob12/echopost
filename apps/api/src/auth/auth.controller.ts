@@ -30,9 +30,6 @@ export class AuthController {
     // set cookie
     res.cookie('access_token', token.accessToken, { httpOnly: true });
     res.cookie('refresh_token', token.refreshToken, { httpOnly: true });
-    return {
-      message: 'login successfully',
-    };
   }
 
   @Get('google')
@@ -46,7 +43,7 @@ export class AuthController {
   @UseGuards(GoogleAuthGuard)
   @HttpCode(HttpStatus.OK)
   async googleAuthRedirect(
-    @Request() req,
+    @Request() req: { user: User },
     @Res({ passthrough: true }) res: Response,
   ) {
     const { accessToken, refreshToken } = await this.authService.googleLogin(
@@ -54,8 +51,6 @@ export class AuthController {
     );
     res.cookie('access_token', accessToken, { httpOnly: true });
     res.cookie('refresh_token', refreshToken, { httpOnly: true });
-    return {
-      message: 'login successfully',
-    };
+    res.redirect('http://localhost:3000/login');
   }
 }
