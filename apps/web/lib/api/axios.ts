@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from 'axios';
-import { makeUseAxios } from 'axios-hooks';
 
 const axiosInstant: AxiosInstance = axios.create({
   baseURL: '/api',
@@ -10,9 +9,4 @@ const axiosInstant: AxiosInstance = axios.create({
   withCredentials: true,
 });
 
-export default makeUseAxios({
-  axios: axiosInstant,
-  defaultOptions: {
-    manual: true,
-  },
-});
+export default axiosInstant

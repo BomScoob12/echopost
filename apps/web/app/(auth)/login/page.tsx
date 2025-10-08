@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { SignInDtoType } from '@echopost/shared-types';
-import useAuthManagement from '@/lib/api/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   Alert,
@@ -12,21 +11,20 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { redirect, RedirectType } from 'next/navigation';
+import { useAuthStore } from '@/app/store';
 
 function Login() {
-  const {
-    postLogin: { loading, error, postLogin },
-  } = useAuthManagement();
-
-  const [showError, setShowError] = React.useState(false);
   const { register, handleSubmit } = useForm<SignInDtoType>();
+  const [showError, setShowError] = React.useState(false);
+  const { login, loading, error } = useAuthStore();
 
-  const onSubmit: SubmitHandler<SignInDtoType> = async (data) => {
-    await postLogin({ data });
+  const onSubmit: SubmitHandler<SignInDtoType> = (data) => {
+    login(data);
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/auth/google';
+    redirect('http://localhost:8080/auth/google', RedirectType.push);
   };
 
   React.useEffect(() => {
@@ -61,16 +59,16 @@ function Login() {
               {...register('password', { required: true, min: 8 })}
             />
             <Button type="submit" variant="outlined">
-              {loading ? '...' : 'Login'}
+              {loading ? 'Loading...' : 'Login'}
             </Button>
-            {showError ?? (
+            {showError && (
               <Alert
                 severity="error"
                 onClose={() => {
                   setShowError(false);
                 }}
               >
-                Login error. please tye again.
+                Login error. please try again.
               </Alert>
             )}
           </Stack>
