@@ -4,7 +4,7 @@ import { getUserMe, postLogin, postLogout } from '@/lib/api/auth';
 import type { SignInDtoType, UserResponseType } from '@echopost/shared-types';
 
 type UserState = {
-  user: UserResponseType | null;
+  user: UserResponseType | null | undefined;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
@@ -12,12 +12,13 @@ type UserState = {
 
 type UserActions = {
   login: (credentials: SignInDtoType) => Promise<void>;
+  fetchUser: () => Promise<void>;
   logout: () => Promise<void>;
   reset: () => void;
 };
 
 const initialState: UserState = {
-  user: null,
+  user: undefined,
   isAuthenticated: false,
   loading: false,
   error: null,
@@ -46,6 +47,7 @@ export const useAuthStore = create<UserState & UserActions>((set) => ({
       }
       errorMsg = err instanceof Error ? err.message : String(err);
       set({
+        user: null,
         loading: false,
         error: errorMsg,
         isAuthenticated: false,
