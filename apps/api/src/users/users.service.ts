@@ -21,23 +21,24 @@ export class UsersService {
     return this.userModel.create(user);
   }
 
-  async findOne({ ...args }): Promise<User | null> {
+  async findOne({ ...args }): Promise<UserDocument | null> {
     return await this.userModel.findOne(args);
   }
 
-  async findOneByEmail(emailReq: string): Promise<User> {
+  async findOneByEmail(emailReq: string): Promise<UserDocument> {
     const user = await this.userModel.findOne({ email: emailReq });
 
     if (!user) {
       throw new NotFoundException(`User with email ${emailReq} not found`);
     }
 
-    return user;
+    return user as UserDocument;
   }
 
   async getProfile(user: User): Promise<UserResponseType> {
     const userData = await this.findOneByEmail(user?.email);
     const userResponse: UserResponseType = {
+      id: userData._id as string,
       username: userData.username,
       email: userData.email,
     };

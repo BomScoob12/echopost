@@ -1,5 +1,5 @@
 export interface UserType {
-  _id: string;
+  id: string;
   email: string;
   username: string;
   password?: string;
@@ -7,6 +7,7 @@ export interface UserType {
 }
 
 export interface UserResponseType {
+  id: string;
   email: string;
   username: string;
   googleId?: string;

@@ -9,8 +9,8 @@ import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 function Login() {
   const { register, handleSubmit } = useForm<SignInDtoType>();
 
-  const onSubmit: SubmitHandler<SignInDtoType> = (data) => {
-    const response = postLogin(data);
+  const onSubmit: SubmitHandler<SignInDtoType> = async (data) => {
+    const response = await postLogin(data);
     console.log(response);
   };
 
