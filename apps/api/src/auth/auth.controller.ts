@@ -35,7 +35,7 @@ export class AuthController {
   @Get('google')
   @UseGuards(GoogleAuthGuard)
   @HttpCode(HttpStatus.OK)
-  async googleAuth(@Request() req) {
+  async googleAuth() {
     // Init google login page
   }
 

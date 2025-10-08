@@ -4,13 +4,7 @@ import React from 'react';
 import { SignInDtoType } from '@echopost/shared-types';
 import { postLogin } from '@/lib/api/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import {
-  Button,
-  Container,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 
 function Login() {
   const { register, handleSubmit } = useForm<SignInDtoType>();
