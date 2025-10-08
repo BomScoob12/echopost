@@ -1,4 +1,3 @@
-import { UserResponseType } from '@echopost/shared-types';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserDocument } from 'src/users/schemas/user.schema';
