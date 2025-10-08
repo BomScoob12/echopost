@@ -2,21 +2,40 @@
 
 import React from 'react';
 import { SignInDtoType } from '@echopost/shared-types';
-import { postLogin } from '@/lib/api/auth';
+import useAuthManagement from '@/lib/api/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Container, Stack, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 function Login() {
+  const {
+    postLogin: { loading, error, postLogin },
+  } = useAuthManagement();
+
+  const [showError, setShowError] = React.useState(false);
   const { register, handleSubmit } = useForm<SignInDtoType>();
 
   const onSubmit: SubmitHandler<SignInDtoType> = async (data) => {
-    const response = await postLogin(data);
-    console.log(response);
+    await postLogin({ data });
   };
 
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/auth/google';
   };
+
+  React.useEffect(() => {
+    if (error) {
+      setShowError(true);
+    } else {
+      setShowError(false);
+    }
+  }, [error]);
 
   return (
     <Container
@@ -42,10 +61,21 @@ function Login() {
               {...register('password', { required: true, min: 8 })}
             />
             <Button type="submit" variant="outlined">
-              Login
+              {loading ? '...' : 'Login'}
             </Button>
+            {showError ?? (
+              <Alert
+                severity="error"
+                onClose={() => {
+                  setShowError(false);
+                }}
+              >
+                Login error. please tye again.
+              </Alert>
+            )}
           </Stack>
         </form>
+
         <Typography component={'p'}>
           You not have an account? <>register</>
         </Typography>

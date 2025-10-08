@@ -1,12 +1,19 @@
-import { AxiosResponse } from 'axios';
-import axios from './axios';
-import { SignInDtoType } from '@echopost/shared-types';
+import useAxios from './axios';
+import HTTP_METHOD from './http-method';
 
-const BASE_URL = '/auth';
+const useAuthManagement = () => {
+  const [{ loading: loginLoading, error: loginError }, postLogin] = useAxios({
+    method: HTTP_METHOD.POST,
+    url: '/auth/login',
+  });
 
-const postLogin = async (credentail: SignInDtoType): Promise<AxiosResponse> => {
-  const res = await axios.post(BASE_URL + '/login', credentail);
-  return res;
+  return {
+    postLogin: {
+      loading: loginLoading,
+      error: loginError,
+      postLogin,
+    },
+  };
 };
 
-export { postLogin };
+export default useAuthManagement;
