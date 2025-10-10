@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/schemas/user.schema';
+import { User, UserDocument } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -10,22 +10,23 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<User | null> {
+  async validateUser(
+    email: string,
+    pass: string,
+  ): Promise<UserDocument | null> {
     const user = await this.usersService.findOne({ email: email });
     const isValidCredentials = user && user.password === pass;
-
+    console.log(user?._id);
     if (isValidCredentials) {
-      return {
-        email: user.email,
-        username: user.username,
-      } as User;
+      return user;
     }
 
     return null;
   }
 
-  async login(user: User) {
+  async login(user: UserDocument) {
     const payload = {
+      id: user._id,
       sub: user.username,
       email: user.email,
     };
@@ -54,6 +55,7 @@ export class AuthService {
     }
 
     const payload = {
+      id: user.id,
       sub: user.name,
       email: user.email,
     };

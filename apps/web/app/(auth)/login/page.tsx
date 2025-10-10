@@ -2,21 +2,38 @@
 
 import React from 'react';
 import { SignInDtoType } from '@echopost/shared-types';
-import { postLogin } from '@/lib/api/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Container, Stack, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { redirect, RedirectType } from 'next/navigation';
+import { useAuthStore } from '@/app/store';
 
 function Login() {
   const { register, handleSubmit } = useForm<SignInDtoType>();
+  const [showError, setShowError] = React.useState(false);
+  const { login, loading, error } = useAuthStore();
 
   const onSubmit: SubmitHandler<SignInDtoType> = (data) => {
-    const response = postLogin(data);
-    console.log(response);
+    login(data);
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/auth/google';
+    redirect('http://localhost:8080/auth/google', RedirectType.push);
   };
+
+  React.useEffect(() => {
+    if (error) {
+      setShowError(true);
+    } else {
+      setShowError(false);
+    }
+  }, [error]);
 
   return (
     <Container
@@ -42,10 +59,21 @@ function Login() {
               {...register('password', { required: true, min: 8 })}
             />
             <Button type="submit" variant="outlined">
-              Login
+              {loading ? 'Loading...' : 'Login'}
             </Button>
+            {showError && (
+              <Alert
+                severity="error"
+                onClose={() => {
+                  setShowError(false);
+                }}
+              >
+                Login error. please try again.
+              </Alert>
+            )}
           </Stack>
         </form>
+
         <Typography component={'p'}>
           You not have an account? <>register</>
         </Typography>

@@ -5,6 +5,7 @@ import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 interface JwtPayload {
+  id: string;
   sub: string;
   email: string;
   iss: string;
@@ -34,8 +35,13 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  validate(payload: JwtPayload): { username: string; email: string } {
+  validate(payload: JwtPayload): {
+    id: string;
+    username: string;
+    email: string;
+  } {
     return {
+      id: payload.id,
       username: payload.sub,
       email: payload.email,
     };

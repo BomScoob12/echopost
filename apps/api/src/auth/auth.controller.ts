@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { User } from 'src/users/schemas/user.schema';
+import { User, UserDocument } from 'src/users/schemas/user.schema';
 import { LocalAuthGuard } from './local-auth.guard';
 import type { Response } from 'express';
 import { GoogleAuthGuard } from './google-auth.guard';
@@ -22,7 +22,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   async login(
-    @Request() req: { user: User },
+    @Request() req: { user: UserDocument },
     // get response like express to setting cookie data
     @Res({ passthrough: true }) res: Response,
   ) {

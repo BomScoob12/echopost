@@ -1,12 +1,19 @@
-import { AxiosResponse } from 'axios';
-import axios from './axios';
 import { SignInDtoType } from '@echopost/shared-types';
+import axios from './axios';
 
-const BASE_URL = '/auth';
-
-const postLogin = async (credentail: SignInDtoType): Promise<AxiosResponse> => {
-  const res = await axios.post(BASE_URL + '/login', credentail);
-  return res;
+const postLogin = async (credentials: SignInDtoType) => {
+  const response = await axios.post('/auth/login', credentials);
+  return response;
 };
 
-export { postLogin };
+const postLogout = async () => {
+  const response = await axios.post('/auth/logout');
+  return response;
+};
+
+const getUserMe = async () => {
+  const response = await axios.get('/users/me');
+  return response;
+};
+
+export { postLogin, postLogout, getUserMe };
